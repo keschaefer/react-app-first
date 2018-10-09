@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import CartHeader from './components/CartHeader.js';
-import Footer from './components/Footer.js';
+import CartFooter from './components/CartFooter.js';
+import CartItems from './components/CartItems.js';
 
 import './App.css';
 
@@ -9,7 +10,8 @@ class App extends Component {
     return (
       <div>
       <CartHeader/>
-      <Footer/>
+      <CartItems/>
+      <CartFooter year = {this.state.year}/>
       </div>
     );
   }

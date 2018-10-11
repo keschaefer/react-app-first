@@ -59,18 +59,14 @@ class App extends Component {
         name: this.state.name, 
         priceInCents: tempItem[0].priceInCents }, 
         quantity: this.state.quantity,
-        itemTotal: this.state.quantity * tempItem[0].priceInCents }
-        console.log(newItem)
+        itemTotal: Number(((this.state.quantity * tempItem[0].priceInCents)/100).toFixed(2)) }
+  
       this.setState({
       CartItemsList: [...this.state.CartItemsList, newItem],
-      total: this.state.total += newItem.itemTotal, 
+      total: this.state.total + newItem.itemTotal
       })
   }
- 
-  // updateTotal = (event) => {
-  //   event.preventDefault()
-    
-  // }
+
 
   render() {
     return ( 

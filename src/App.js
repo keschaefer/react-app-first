@@ -58,14 +58,19 @@ class App extends Component {
         id: tempItem[0].id, 
         name: this.state.name, 
         priceInCents: tempItem[0].priceInCents }, 
-        quantity: this.state.quantity }
+        quantity: this.state.quantity,
+        itemTotal: this.state.quantity * tempItem[0].priceInCents }
         console.log(newItem)
       this.setState({
-      CartItemsList: [...this.state.CartItemsList, newItem]
-    })
+      CartItemsList: [...this.state.CartItemsList, newItem],
+      total: this.state.total += newItem.itemTotal, 
+      })
   }
  
-  
+  // updateTotal = (event) => {
+  //   event.preventDefault()
+    
+  // }
 
   render() {
     return ( 
@@ -74,7 +79,7 @@ class App extends Component {
       <CartItems CartItemsList = {this.state.CartItemsList} />
       <div className= "form-container">
       <form className="form-group">
-        <p>Total $</p>
+        <p>Total ${this.state.total}</p>
         <label>Quantity</label>
           <input type="number" className="form-control" id="exampleFormControlTextarea1" rows="3" onChange= {this.onChangeQuantity}></input>
         <label>Products</label>

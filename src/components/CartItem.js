@@ -2,7 +2,7 @@ import React from 'react';
 
 
 const CartItem = (props) => {
-    var NewCartItemsList = props.CartItemsList.map(i => {
+    return props.CartItemsList.map(i => {
     return (
         <div className="list-group-item" key = {i.product.name}>
             <div className="row">
@@ -12,11 +12,6 @@ const CartItem = (props) => {
             </div>
         </div>
     )})
-    return ( 
-    <div className="collection-item">
-        {NewCartItemsList}
-    </div>
-    )
 }
 
 export default CartItem;

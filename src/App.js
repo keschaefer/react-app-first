@@ -29,13 +29,16 @@ class App extends Component {
         { id: 48, name: 'Awesome Leather Shoes', priceInCents: 3990 },
       ],
       quantity: 0,
-      name: ''
+      name: '',
+      id: '',
+      price: 0,
+      total: 0,
     };
   }
 
   onChangeName = (event) => {
-    this.setState({
-      name: event.target.value
+  this.setState({
+      name: event.target.value,
     })
   }
 
@@ -46,16 +49,23 @@ class App extends Component {
   }
     
   addItemCart = (event) => {
-    event.preventDefault()
-    console.log(this.state.name)
-    console.log(this.state.quantity)
-    var newItem = this.state.Products.filter(i => {
-      return i.name  === this.state.name 
-    }) 
-    // this.setState({
-    //   CartItemsList: [...this.state.CartItemsList, newItem]
-    // })
+    event.preventDefault() 
+    var tempItem = this.state.Products.filter(i => {
+        return i.name === this.state.name
+    })
+    var newItem = { id: this.state.CartItemsList.length + 1, 
+      product: { 
+        id: tempItem[0].id, 
+        name: this.state.name, 
+        priceInCents: tempItem[0].priceInCents }, 
+        quantity: this.state.quantity }
+        console.log(newItem)
+      this.setState({
+      CartItemsList: [...this.state.CartItemsList, newItem]
+    })
   }
+ 
+  
 
   render() {
     return ( 

@@ -34,20 +34,32 @@ class App extends Component {
   }
 
   onChangeName = (event) => {
-    this.state.name = event.target.value
+    this.setState({
+      name: event.target.value
+    })
     console.log(this.state.name)
   }
 
   onChangeQuantity = (event) => {
-    this.state.quantity = event.target.value
+    this.setState({
+      quantity: event.target.value
+    })
     console.log(this.state.quantity)
-
   }
-  
-  // var foo = {items: []}
-  // var foo2 =  
-
     
+  addItemCart = (event) => {
+    event.preventDefault()
+    console.log(this.state.name)
+    console.log(this.state.quantity)
+    var newItem = this.state.Products.filter(item => {
+      return this.state.Products[item].name === this.state.name
+      
+    }) 
+    console.log(newItem)
+    // this.setState({
+    //   cartItemsList: [...this.state.cartItemsList, newItem]
+    // })
+  }
 
   render() {
     return ( 
@@ -64,7 +76,7 @@ class App extends Component {
                 <option>Select an Option...</option>
                 <AddItem Products = {this.state.Products} />
             </select>
-        <button id="submit">Submit</button>
+        <button id="submit" onClick= {this.addItemCart}>Submit</button>
       </form>
       </div>
       <CartFooter copyright = {this.state.copyright} year = {this.state.year}/> 

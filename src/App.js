@@ -28,28 +28,45 @@ class App extends Component {
         { id: 47, name: 'Ergonomic Bronze Lamp', priceInCents: 40000 },
         { id: 48, name: 'Awesome Leather Shoes', priceInCents: 3990 },
       ],
+      quantity: 0,
+      name: ''
     };
   }
 
+  onChangeName = (event) => {
+    this.state.name = event.target.value
+    console.log(this.state.name)
+  }
+
+  onChangeQuantity = (event) => {
+    this.state.quantity = event.target.value
+    console.log(this.state.quantity)
+
+  }
+  
+  // var foo = {items: []}
+  // var foo2 =  
+
+    
 
   render() {
     return ( 
       <div>
       <CartHeader />
       <CartItems CartItemsList = {this.state.CartItemsList} />
+      <div className= "form-container">
       <form className="form-group">
         <p>Total $</p>
         <label>Quantity</label>
-            <input type="number" className="form-control" id="exampleFormControlTextarea1" rows="3"></input>
-        <div id="product-menu">
-            <label>Products</label>
-            <select>
+          <input type="number" className="form-control" id="exampleFormControlTextarea1" rows="3" onChange= {this.onChangeQuantity}></input>
+        <label>Products</label>
+            <select onChange={this.onChangeName}>
                 <option>Select an Option...</option>
                 <AddItem Products = {this.state.Products} />
             </select>
-        </div> 
         <button id="submit">Submit</button>
       </form>
+      </div>
       <CartFooter copyright = {this.state.copyright} year = {this.state.year}/> 
       </div>
     );

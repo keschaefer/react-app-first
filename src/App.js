@@ -37,27 +37,23 @@ class App extends Component {
     this.setState({
       name: event.target.value
     })
-    console.log(this.state.name)
   }
 
   onChangeQuantity = (event) => {
     this.setState({
       quantity: event.target.value
     })
-    console.log(this.state.quantity)
   }
     
   addItemCart = (event) => {
     event.preventDefault()
     console.log(this.state.name)
     console.log(this.state.quantity)
-    var newItem = this.state.Products.filter(item => {
-      return this.state.Products[item].name === this.state.name
-      
+    var newItem = this.state.Products.filter(i => {
+      return i.name  === this.state.name 
     }) 
-    console.log(newItem)
     // this.setState({
-    //   cartItemsList: [...this.state.cartItemsList, newItem]
+    //   CartItemsList: [...this.state.CartItemsList, newItem]
     // })
   }
 

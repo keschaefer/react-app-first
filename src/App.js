@@ -12,11 +12,7 @@ class App extends Component {
     this.state = {
       year: '2016',
       copyright: '&copy',
-      CartItemsList: 
-      [ { id: 1, product: { id: 40, name: 'Mediocre Iron Watch', priceInCents: 399 }, quantity: 1 },
-      { id: 2, product: { id: 41, name: 'Heavy Duty Concrete Plate', priceInCents: 499 }, quantity: 2 },
-      { id: 3, product: { id: 42, name: 'Intelligent Paper Knife', priceInCents: 1999 }, quantity: 1 },
-      ],
+      CartItemsList: [ ],
       Products: [
         { id: 40, name: 'Mediocre Iron Watch', priceInCents: 399 },
         { id: 41, name: 'Heavy Duty Concrete Plate', priceInCents: 499 },
@@ -36,57 +32,59 @@ class App extends Component {
     };
   }
 
-  onChangeName = (event) => {
-  this.setState({
-      name: event.target.value,
-    })
-  }
+onChangeName = (event) => {
+this.setState({
+    name: event.target.value,
+  })
+}
 
-  onChangeQuantity = (event) => {
-    this.setState({
-      quantity: event.target.value
-    })
-  }
+onChangeQuantity = (event) => {
+  this.setState({
+    quantity: event.target.value
+  })
+}
     
-  addItemCart = (event) => {
-    event.preventDefault() 
-    var tempItem = this.state.Products.filter(i => {
-        return i.name === this.state.name
+addItemCart = (event) => {
+  event.preventDefault() 
+  var tempItem = this.state.Products.filter(i => {
+      return i.name === this.state.name
+  })
+  var newItem = {
+    id: this.state.CartItemsList.length + 1, 
+    product: { 
+      id: tempItem[0].id, 
+      name: this.state.name, 
+      priceInCents: tempItem[0].priceInCents }, 
+      quantity: this.state.quantity,
+      itemTotal: Number(((this.state.quantity * tempItem[0].priceInCents)/100).toFixed(2)) }
+  this.setState({
+    CartItemsList: [...this.state.CartItemsList, newItem],
+    total: this.state.total + newItem.itemTotal
     })
-    var newItem = { id: this.state.CartItemsList.length + 1, 
-      product: { 
-        id: tempItem[0].id, 
-        name: this.state.name, 
-        priceInCents: tempItem[0].priceInCents }, 
-        quantity: this.state.quantity,
-        itemTotal: Number(((this.state.quantity * tempItem[0].priceInCents)/100).toFixed(2)) }
-  
-      this.setState({
-      CartItemsList: [...this.state.CartItemsList, newItem],
-      total: this.state.total + newItem.itemTotal
-      })
   }
 
 
   render() {
     return ( 
       <div>
-      <CartHeader />
-      <CartItems CartItemsList = {this.state.CartItemsList} />
-      <div className= "form-container">
-      <form className="form-group">
-        <p>Total ${this.state.total}</p>
-        <label>Quantity</label>
-          <input type="number" className="form-control" id="exampleFormControlTextarea1" rows="3" onChange= {this.onChangeQuantity}></input>
-        <label>Products</label>
-            <select onChange={this.onChangeName}>
+        <CartHeader />
+        <CartItems CartItemsList = {this.state.CartItemsList} />
+        <div  className= "form-container">
+          <form className="form-group">
+            <p className= "title">Total ${this.state.total}</p>
+            <label className= "title">Quantity</label>
+              <input type="number" className="form-control" id="exampleFormControlTextarea1" rows="3" onChange= {this.onChangeQuantity}></input>
+            <div className = "product-container">
+              <label className= "title">Products</label>
+              <select onChange={this.onChangeName}>
                 <option>Select an Option...</option>
                 <AddItem Products = {this.state.Products} />
-            </select>
-        <button id="submit" onClick= {this.addItemCart}>Submit</button>
-      </form>
-      </div>
-      <CartFooter copyright = {this.state.copyright} year = {this.state.year}/> 
+              </select>
+            </div>
+            <button id="submit" onClick= {this.addItemCart}>Submit</button>
+          </form>
+        </div>
+        <CartFooter copyright = {this.state.copyright} year = {this.state.year}/> 
       </div>
     );
   }

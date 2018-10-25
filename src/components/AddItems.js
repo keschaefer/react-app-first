@@ -1,9 +1,9 @@
 import React from 'react';
 
 const AddItems = (props) => {
-    return props.Products.map(i => {
+    return props.products.map(i => {
         return (
-            <option key = {i.name}>{i.name}</option>
+            <option key = {i.id}>{i.name}</option>
         )})
       }
 

@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import CartHeader from './components/CartHeader.js';
 import CartFooter from './components/CartFooter.js';
 import CartItems from './components/CartItems.js';
-import AddItem from './components/AddItems';
 
 import './App.css';
 
@@ -12,8 +11,8 @@ class App extends Component {
     this.state = {
       year: '2016',
       copyright: '&copy',
-      CartItemsList: [ ],
-      Products: [
+      cartItemsList: [ ],
+      products: [
         { id: 40, name: 'Mediocre Iron Watch', priceInCents: 399 },
         { id: 41, name: 'Heavy Duty Concrete Plate', priceInCents: 499 },
         { id: 42, name: 'Intelligent Paper Knife', priceInCents: 1999 },
@@ -46,11 +45,11 @@ onChangeQuantity = (event) => {
     
 addItemCart = (event) => {
   event.preventDefault() 
-  var tempItem = this.state.Products.filter(i => {
+  var tempItem = this.state.products.filter(i => {
       return i.name === this.state.name
   })
   var newItem = {
-    id: this.state.CartItemsList.length + 1, 
+    id: this.state.cartItemsList.length + 1, 
     product: { 
       id: tempItem[0].id, 
       name: this.state.name, 
@@ -58,33 +57,26 @@ addItemCart = (event) => {
       quantity: this.state.quantity,
       itemTotal: Number(((this.state.quantity * tempItem[0].priceInCents)/100).toFixed(2)) }
   this.setState({
-    CartItemsList: [...this.state.CartItemsList, newItem],
+    cartItemsList: [...this.state.cartItemsList, newItem],
     total: this.state.total + newItem.itemTotal
     })
   }
-
 
   render() {
     return ( 
       <div>
         <CartHeader />
-        <CartItems CartItemsList = {this.state.CartItemsList} />
-        <div  className= "form-container">
-          <form className="form-group">
-            <p className= "title">Total ${this.state.total}</p>
-            <label className= "title">Quantity</label>
-              <input type="number" className="form-control" id="exampleFormControlTextarea1" rows="3" onChange= {this.onChangeQuantity}></input>
-            <div className = "product-container">
-              <label className= "title">Products</label>
-              <select onChange={this.onChangeName}>
-                <option>Select an Option...</option>
-                <AddItem Products = {this.state.Products} />
-              </select>
-            </div>
-            <button id="submit" onClick= {this.addItemCart}>Submit</button>
-          </form>
-        </div>
-        <CartFooter copyright = {this.state.copyright} year = {this.state.year}/> 
+        <CartItems 
+        cartItemsList = {this.state.cartItemsList} 
+        total = {this.state.total} 
+        onChangeName = {this.onChangeName} 
+        addItemCart = {this.addItemCart}
+        onChangeQuantity = {this.onChangeQuantity}
+        products = {this.state.products}
+        />
+        <CartFooter 
+        year = {this.state.year}
+        /> 
       </div>
     );
   }
